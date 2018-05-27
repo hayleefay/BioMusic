@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h3>Input the accession number of a protein.</h3>
+<form method="post" action="/song">
+  <input type="text" name="acc_number">
+  <button type="submit" name="button">Submit</button>
+</form>
+{% endblock %}

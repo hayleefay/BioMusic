@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<p>{{ protein_name }}</p>
+<p>{{ protein_seq }}</p>
+
+<button onclick="startSong()" id="notes" data-notes="{{ notes }}" type="button" name="button">Play song</button>
+{% endblock %}
+
+{% block tags %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/song.js') }}"></script>
+{% endblock %}
