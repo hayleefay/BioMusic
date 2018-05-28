@@ -1,12 +1,83 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<p>{{ protein_name }}</p>
-<p>{{ protein_seq }}</p>
+<h3>{{ protein_name }}</h3>
+<div class="card">
+  <div class="card-body">
+    <p>{{ protein_seq }}</p>
+  </div>
+</div>
 
-<button onclick="startSong()" id="notes" data-notes="{{ notes }}" type="button" name="button">Play song</button>
+<br>
+
+<button id="notes" type="button" class="btn btn-outline-secondary">Play song</button>
+<button id="sheet" type="button" class="btn btn-outline-secondary">See sheet music</button>
+
+<div id="paper" align="center"></div>
 {% endblock %}
 
 {% block tags %}
-<script type="text/javascript" src="{{ url_for('static', filename='js/song.js') }}"></script>
+<script type="text/javascript" src="https://unpkg.com/abcjs@5.1.2/bin/abcjs_basic_5.1.2-min.js"></script>
+<script type="text/javascript">
+  // Get notes from server
+  var notes = JSON.parse('{{notes}}');
+
+  class Sound {
+    constructor(context, tempo) {
+      this.context = context;
+      this.tempo = tempo || 60;
+    }
+
+    init() {
+      this.oscillator = this.context.createOscillator();
+      this.gainNode = this.context.createGain();
+
+      this.oscillator.connect(this.gainNode);
+      this.gainNode.connect(this.context.destination);
+      this.oscillator.type = 'sine';
+    }
+
+    play(value, offset, duration) {
+      // Create the oscillator/gain/etc
+      this.init();
+
+      // Set the value for the note
+      this.oscillator.frequency.value = value;
+
+      // Account for tempo changes in the duration and offset
+      duration = (duration || 1);
+      offset = offset * 60 / this.tempo;
+
+      // Calculate start and end time
+      var noteStartTime = this.context.currentTime + offset;
+      var noteEndTime = noteStartTime + duration;
+
+      // Set the start time
+      this.gainNode.gain.setValueAtTime(1, noteStartTime);
+      this.oscillator.start(noteStartTime);
+
+      // Set the end time
+      this.stop(noteEndTime);
+    }
+
+    stop(time) {
+      this.gainNode.gain.exponentialRampToValueAtTime(0.001, time);
+      this.oscillator.stop(time);
+    }
+  }
+
+  var context = new (window.AudioContext || window.webkitAudioContext)();
+  document.getElementById('notes').addEventListener('click', function () {
+    var sound = new Sound(context, 1200);
+    var startTime = context.currentTime;
+    notes.forEach(function (note, index) {
+      sound.play(note, index*10, 10);
+    });
+  });
+
+  document.getElementById('sheet').addEventListener('click', function () {
+    const tune = 'X:1\nT: Cooley\'s\nM: 4/4\nL: 1/8\nR: reel\nK: Emin\nD2|:"Em"EB{c}BA B2 EB|~B2 AB dBAG|"D"FDAD BDAD|FDAD dAFD|\n"Em"EBBA B2 EB|B2 AB defg|"D"afe^c dBAF|1"Em"DEFD E2 D2:|2"Em"DEFD E2 gf||\n|:"Em"eB B2 efge|eB B2 gedB|"D"A2 FA DAFA|A2 FA defg|\n"Em"eB B2 eBgB|eB B2 defg|"D"afe^c dBAF|1"Em"DEFD E2 gf:|2"Em"DEFD E4|]\n';
+    ABCJS.renderAbc("paper", tune);
+  });
+</script>
 {% endblock %}
