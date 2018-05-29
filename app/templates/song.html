@@ -2,6 +2,7 @@
 
 {% block content %}
 <h3>{{ protein_name }}</h3>
+<h3>{{ coding_regions }}</h3>
 <div class="card">
   <div class="card-body">
     <p>{{ protein_seq }}</p>
@@ -68,7 +69,7 @@
 
   var context = new (window.AudioContext || window.webkitAudioContext)();
   document.getElementById('notes').addEventListener('click', function () {
-    var sound = new Sound(context, 1200);
+    var sound = new Sound(context, 60);
     var startTime = context.currentTime;
     notes.forEach(function (note, index) {
       sound.play(note, index*10, 10);
