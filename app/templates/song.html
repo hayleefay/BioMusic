@@ -20,9 +20,6 @@
 {% block tags %}
 <script type="text/javascript" src="https://unpkg.com/abcjs@5.1.2/bin/abcjs_basic_5.1.2-min.js"></script>
 <script type="text/javascript">
-  // Get notes from server
-  var notes = JSON.parse('{{notes}}');
-
   class Sound {
     constructor(context, tempo) {
       this.context = context;
@@ -31,11 +28,13 @@
 
     init() {
       this.oscillator = this.context.createOscillator();
-      this.gainNode = this.context.createGain();
-
-      this.oscillator.connect(this.gainNode);
-      this.gainNode.connect(this.context.destination);
       this.oscillator.type = 'sine';
+
+      this.gainNode = this.context.createGain();
+      this.gainNode.gain.value = 0.3;
+
+      this.oscillator.connect(this.gainNode).connect(this.context.destination);
+      this.gainNode.connect(this.context.destination);
     }
 
     play(value, offset, duration) {
@@ -54,25 +53,43 @@
       var noteEndTime = noteStartTime + duration;
 
       // Set the start time
-      this.gainNode.gain.setValueAtTime(1, noteStartTime);
+      this.gainNode.gain.setValueAtTime(0, noteStartTime);
       this.oscillator.start(noteStartTime);
+
+      this.gainNode.gain.linearRampToValueAtTime(1, noteStartTime + 0.025);
 
       // Set the end time
       this.stop(noteEndTime);
     }
 
     stop(time) {
-      this.gainNode.gain.exponentialRampToValueAtTime(0.001, time);
+      this.gainNode.gain.exponentialRampToValueAtTime(0.001, time - 0.025);
       this.oscillator.stop(time);
     }
   }
 
+  // Get notes from server
+  var notes = JSON.parse('{{ notes }}');
+  var durations = JSON.parse('{{ durations }}');
+
   var context = new (window.AudioContext || window.webkitAudioContext)();
   document.getElementById('notes').addEventListener('click', function () {
-    var sound = new Sound(context, 60);
-    var startTime = context.currentTime;
+    var tempo = '{{ tempo }}';
+
+    // Can play up to three notes at a time for a chord
+    var sound1 = new Sound(context, tempo);
+    var sound2 = new Sound(context, tempo);
+    var sound3 = new Sound(context, tempo);
+
+    var currentOffset = 0;
     notes.forEach(function (note, index) {
-      sound.play(note, index*10, 10);
+      var duration = durations[index];
+
+      sound1.play(note[0], currentOffset, duration);
+      note[1] && sound2.play(note[1], currentOffset + 0.03, duration);
+      note[2] && sound3.play(note[2], currentOffset + 0.06, duration);
+
+      currentOffset += duration;
     });
   });
 

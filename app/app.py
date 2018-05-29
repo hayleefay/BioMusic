@@ -33,12 +33,27 @@ def make_song():
                     stop = int(region[0][i+2:])
                     coding_regions.append([start, stop])
 
+        tempo = 120
+
         notes = []
         for acid in sequence:
             notes.append(196.00)
             notes.append(311.13)
 
-        return render_template('song.html', protein_seq=sequence, protein_name=name, notes=notes, coding_regions=coding_regions)
+        dummy_notes = [
+            [261.6, 329.628, 391.995],
+            [329.628],
+            [391.995],
+            [440, 523.3, 659.3],
+            [440, 523.3, 659.3],
+            [391.995],
+            [329.628],
+            [261.6],
+            [261.6, 329.628, 391.995],
+        ]
+        dummy_durations = [1, 0.5, 0.5, 1, 1, 0.5, 0.5, 1, 1]
+
+        return render_template('song.html', protein_seq=sequence, protein_name=name, notes=dummy_notes, durations=dummy_durations, tempo=tempo, coding_regions=coding_regions)
 
     error = 'sorry'
     return render_template('error.html', error=error)
