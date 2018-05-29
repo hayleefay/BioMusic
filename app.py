@@ -29,7 +29,7 @@ D_MAJOR = ['G_1', 'A_1', 'B_1', 'C#_1', 'D_1', 'E_1', 'F#_1', 'G_2', 'A_2', 'B_2
 
 KEYS = {'Cmaj': C_MAJOR, 'Gmaj': G_MAJOR, 'Dmaj': D_MAJOR}
 KEY_LIST = ['Cmaj', 'Gmaj', 'Dmaj']
-TEMPOS = [70, 120, 250]
+TEMPOS = [70, 120, 250, 600]
 DURATIONS = [1, 2, 4, 8]
 
 
@@ -64,8 +64,8 @@ def map_protein(protein, regions):
     t = [ord(x) for x in start[:5]]
     k = [ord(x) for x in start[5:]]
 
-    tempo = TEMPOS[sum(t) % 3]
-    key = KEY_LIST[sum(k) % 3]
+    tempo = TEMPOS[sum(t) % len(TEMPOS)]
+    key = KEY_LIST[sum(k) % len(KEY_LIST)]
 
     notes = []
     duration = []
@@ -133,6 +133,24 @@ def create_sheet(notes, durations):
     return sheet_string
 
 
+def create_coding_regions(xml_text):
+    coding_regions = []
+    table = xml_text.GBSet.GBSeq.findAll('GBSeq_feature-table')
+    for tag in table:
+        key = tag.findAll('GBFeature')
+        for k in key:
+            content = k.GBFeature_key.contents
+            if content[0] == 'Region':
+                region = k.GBFeature_key.find_next('GBFeature_location').contents
+                i = region[0].find('..')
+
+                start = int(region[0][:i].strip('<'))
+                stop = int(region[0][i+2:].strip('<'))
+                coding_regions.append([start, stop])
+
+    return coding_regions
+
+
 @app.route('/')
 def form():
     return render_template('form.html')
@@ -148,18 +166,7 @@ def make_song():
         sequence = xml_text.GBSeq_sequence.contents[0]
         name = xml_text.GBSeq_definition.contents[0]
 
-        coding_regions = []
-        table = xml_text.GBSet.GBSeq.findAll('GBSeq_feature-table')
-        for tag in table:
-            key = tag.findAll('GBFeature')
-            for k in key:
-                content = k.GBFeature_key.contents
-                if content[0] == 'Region':
-                    region = k.GBFeature_key.find_next('GBFeature_location').contents
-                    i = region[0].find('..')
-                    start = int(region[0][:i])
-                    stop = int(region[0][i+2:])
-                    coding_regions.append([start, stop])
+        coding_regions = create_coding_regions(xml_text)
 
         key, tempo, notes, durations = map_protein(sequence, coding_regions)
 
