@@ -111,20 +111,24 @@ def color_domain(sequence, coding_regions):
 
 
 def create_sheet(notes, durations):
-    sheet_string = ""
+    sheet_string = "[|"
     total_duration = 0
     for index, note in enumerate(notes):
-        sheet_string += SHEET_NOTES[note[0]]
-
-        sheet_string += str(durations[index])
+        sheet_string += '['
+        for n in note:
+            sheet_string += SHEET_NOTES[n]
+            sheet_string += str(durations[index])
+        sheet_string += ']'
 
         total_duration += durations[index]
 
-        if total_duration % 4 == 0 and total_duration != 0:
+        if total_duration % 8 == 0 and total_duration != 0:
             sheet_string += '|'
 
         if total_duration % 16 == 0:
             sheet_string += '\n'
+
+    sheet_string += "|]"
 
     return sheet_string
 
