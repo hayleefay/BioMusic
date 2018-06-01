@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.5.7)  1 JUN 2018 14:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.5.7)  1 JUN 2018 16:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -206,27 +206,27 @@ LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
 (./final_report.aux)
 \openout1 = `final_report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 36.
-LaTeX Font Info:    ... okay on input line 36.
-LaTeX Font Info:    Try loading font information for OT1+ptm on input line 36.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 25.
 
 (/usr/local/texlive/2018basic/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 \AtBeginShipoutBox=\box28
-Package hyperref Info: Link coloring ON on input line 36.
+Package hyperref Info: Link coloring ON on input line 25.
 
 (/usr/local/texlive/2018basic/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -237,9 +237,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count104
 )
-LaTeX Info: Redefining \ref on input line 36.
-LaTeX Info: Redefining \pageref on input line 36.
-LaTeX Info: Redefining \nameref on input line 36.
+LaTeX Info: Redefining \ref on input line 25.
+LaTeX Info: Redefining \pageref on input line 25.
+LaTeX Info: Redefining \nameref on input line 25.
  (./final_report.out) (./final_report.out)
 \@outlinefile=\write3
 \openout3 = `final_report.out'.
@@ -260,21 +260,21 @@ LaTeX Info: Redefining \nameref on input line 36.
 \everyMPtoPDFconversion=\toks16
 ) ABD: EveryShipout initializing macros
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 37.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 26.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 37.
+(Font)              <12> on input line 26.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 37.
+(Font)              <8> on input line 26.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 37.
-LaTeX Font Info:    Try loading font information for U+lasy on input line 37.
+(Font)              <6> on input line 26.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 26.
 
 (/usr/local/texlive/2018basic/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 37.
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 37.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 26.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 26.
 
 (/usr/local/texlive/2018basic/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
@@ -283,7 +283,7 @@ File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 d.
 <to be read again> 
                    relax 
-l.37 \maketitle
+l.26 \maketitle
                
 I wasn't able to read the size data for this font,
 so I will ignore the font specification.
@@ -333,15 +333,20 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no d in font nullfont!
 Missing character: There is no u in font nullfont!
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <10.95> on input line 41.
+(Font)              <10.95> on input line 30.
 
-Underfull \hbox (badness 2165) in paragraph at lines 41--42
-[] \OT1/ptm/m/it/10.95 For this project, we ex-plore pro-tein
+Underfull \hbox (badness 1019) in paragraph at lines 30--31
+\OT1/ptm/m/it/10.95 well as mu-sic the-ory in or-der to pro-
  []
 
 
-Underfull \hbox (badness 1173) in paragraph at lines 41--42
-\OT1/ptm/m/it/10.95 sonification- that is, the trans-la-tion of
+Underfull \hbox (badness 1997) in paragraph at lines 33--34
+\OT1/ptm/m/n/10.95 plex bi-o-log-i-cal data through com-pu-ta-
+ []
+
+
+Underfull \hbox (badness 1127) in paragraph at lines 33--34
+\OT1/ptm/m/n/10.95 study bi-o-log-i-cal data. One such new
  []
 
 Missing character: There is no 0 in font nullfont!
@@ -709,20 +714,24 @@ Missing character: There is no . in font nullfont!
 
 
 ]
+Underfull \hbox (badness 1221) in paragraph at lines 55--56
+\OT1/ptm/m/n/10.95 which are rep-re-sented as whole notes.
+ []
 
-! LaTeX Error: \begin{list} on input line 38 ended by \end{document}.
+
+! LaTeX Error: \begin{list} on input line 27 ended by \end{document}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.85 \end{document}
+l.65 \end{document}
                    
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 85.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 65.
 Missing character: There is no 1 in font nullfont!
 Missing character: There is no 0 in font nullfont!
 Missing character: There is no 0 in font nullfont!
@@ -1083,37 +1092,35 @@ Missing character: There is no U in font nullfont!
 Missing character: There is no T in font nullfont!
 Missing character: There is no E in font nullfont!
 Missing character: There is no . in font nullfont!
-[2
-
-]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 85.
+[2]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 65.
  (./final_report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 85.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 85.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 65.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 65.
 Package rerunfilecheck Info: File `final_report.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 85.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 65.
  )
 (\end occurred inside a group at level 2)
 
-### semi simple group (level 2) entered at line 38 (\begingroup)
-### semi simple group (level 1) entered at line 38 (\begingroup)
+### semi simple group (level 2) entered at line 27 (\begingroup)
+### semi simple group (level 1) entered at line 27 (\begingroup)
 ### bottom level
 (\end occurred when \iffalse on line 349 was incomplete) 
 Here is how much of TeX's memory you used:
  5625 strings out of 494091
  81615 string characters out of 6163524
- 175005 words of memory out of 5000000
+ 176005 words of memory out of 5000000
  9267 multiletter control sequences out of 15000+600000
  15251 words of font info for 40 fonts, out of 8000000 for 9000
  319 hyphenation exceptions out of 8191
- 35i,10n,37p,868b,427s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 35i,10n,37p,901b,427s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/201
 8basic/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2018basic/tex
 mf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2018basic/texmf-di
 st/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2018basic/texmf-dist/fo
 nts/type1/urw/times/utmri8a.pfb>
-Output written on final_report.pdf (2 pages, 46737 bytes).
+Output written on final_report.pdf (2 pages, 49203 bytes).
 PDF statistics:
  38 PDF objects out of 1000 (max. 8388607)
  30 compressed objects within 1 object stream

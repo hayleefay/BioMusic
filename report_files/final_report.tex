@@ -18,17 +18,6 @@
 
 \usepackage{url}
 
-%\aclfinalcopy % Uncomment this line for the final submission
-%\def\aclpaperid{***} %  Enter the acl Paper ID here
-
-%\setlength\titlebox{5cm}
-% You can expand the titlebox if you need extra space
-% to show all the authors. Please do not make the titlebox
-% smaller than 5cm (the original size); we will check this
-% in the camera-ready version and ask you to change it back.
-
-% \newcommand\BibTeX{B{\sc ib}\TeX}
-
 \title{BioMusic: Making Proteins Sing}
 
 \date{06/01/2018}
@@ -37,49 +26,40 @@
 \maketitle
 \begin{abstract}
   \textit{
-  For this project, we explore protein sonification- that is, the translation of protein sequences to music. To achieve this goal, we investigate sonification algorithms and well as music theory in order to produce pieces of music that are both effective representations of sequences and melodiously pleasing. We then create a web application to demonstrate the process and share the generated music with users. We employ Javascript libraries to produce auditory and written music in browser. The app can be found at \underline{https://biomusic.herokuapp.com/}.
+  For this project, we explore protein sonification, which is the translation of protein sequences to music. To achieve this goal, we investigate sonification algorithms and well as music theory in order to produce pieces of music that are both effective representations of sequences and melodiously pleasing. We then create a web application to demonstrate the process and share the generated music with users. We employ Javascript libraries to produce auditory and written music in browser. The app can be found at \underline{https://biomusic.herokuapp.com/}.
   }
 
 \section{Introduction}
-
+Bioinformatics involves analyzing complex biological data through computational methods. Biological structures such as DNA strands and protein sequences are historically presented and analyzed visually. Through visual models, one can notice specific forms and constructs of different biological elements. This area has been heavily studied and multiple tools exist to visually model biological data. Considerably less investment has been placed in discovering novel means whereby to study biological data. One such new method is sonification. 
 
 
 \section{Background}
 
-In the context of bioinformatics, sonification refers to the attempt to capture the information content of DNA and protein sequences auditorily. Although sequences are traditionally analyzed visually, using auditory methods to inspect DNA and proteins have benefits. Rather than learning about individual elements of sequences, sonification is useful when determining patterns and potential mutations across the entire DNA or protein strand. Sonification can also be used to aid visually impaired individuals, allowing them to hear the sequence when they are not able to see it. 
+In the context of bioinformatics, sonification refers to the attempt to capture the information content of DNA and protein sequences auditorily. Although sequences are traditionally analyzed visually, using auditory methods to inspect DNA and proteins has benefits. Sonification is useful when determining patterns and potential mutations across the entire DNA or protein strand and can be used to aid visually impaired individuals.
 
-The majority of work in sonification has been done with DNA sequences. There are six main algorithms currently used in the DNA sonification process. These algorithms are based on biological features and rules, such as the distinction between introns and exons in a DNA sequence. This ensures that music produced through sonification contains applicable information about the structure of the sequence in question.  Most DNA sonification algorithms analyze nucleotides in groups of three to simulate the structure of codons; these algorithms generate reading frames and some even produce music with interlaced melodies to represent the three possible reading frames present in a DNA strand. Simpler algorithms use hash tables to map each of the four nucleotide bases to one of four musical notes or pairs of nucleotides to 16 possible musical notes. 
+The majority of work in sonification has been done with DNA sequences. There are six main algorithms currently used in the DNA sonification process. These algorithms are based on biological features and rules, such as the distinction between introns and exons in a DNA sequence. This ensures that music produced through sonification contains applicable information about the structure of the sequence in question.  Most DNA sonification algorithms analyze nucleotides in groups of three to simulate the structure of codons. Simpler algorithms use hash tables to map each of the four nucleotide bases to one of four musical notes or pairs of nucleotides to 16 possible musical notes. 
 
 Our group takes advantage of these two main principles by analyzing protein sequences (translated nucleotides that form a coding region) and mapping individual amino acids to specific notes. This captures the biological context of the protein and provides unique information for each protein. 
 
 \section{Methods}
 
-The specific algorithm we implemented uses features of the major DNA sonification algorithms. First, our algorithm determines a key signature and tempo based off of the first 10 proteins in the sequence. The proteins are divided into two gropus of 5 and the unicode point of each protein character is found. Sums of both groups are taken and hashed to a specific key and tempo. Keys included in the final version of our project are C major, D major, G major, D minor, and G minor. Tempos are 120, 250, 400 and 600. These two features ensure that pieces of music generated from proteins are variable and musically interesting. 
+The specific algorithm we implemented uses features of the major DNA sonification algorithms. First, our algorithm determines a key signature and tempo based off of the first few amino acids in the sequence. These acids are divided into two groups of 5 and the unicode point of each protein character is found. Sums of both groups are taken and hashed to a specific key and tempo. Keys included in the final version of our project are C major, D major, G major, D minor, and G minor. Once the key is selected, potential notes are restricted to only those notes included within the specific scale of the chosen key. Tempos are 60, 125, 200, and 300. These two features ensure variability in the music generated.
 
-The most obvious connection between our algorithm and those previously mentioned is the use of hash tables to map specific proteins to individual notes. Our algorithm iterates through the protein sequence and assigns a note to each individual amino acid. The number of notes in final piece of music is equal to the total number of acids in the sequence. The duration of the note is determined based off of the overall distribution of amino acids in a given protein sequence. First, counts for each amino acid are calculated. This distribution is then divided into quartiles and note durations are assigned uniformly to each quartile with the most common amino acids receiving the longest durations. 
+The most obvious connection between our algorithm and those previously mentioned is the use of hash tables to map specific proteins to individual notes. Our algorithm iterates through the protein sequence and assigns a note to each individual amino acid. The duration of the note is determined based off of the overall distribution of amino acids in a given protein sequence. First, counts for each amino acid are calculated. This distribution is then divided into quartiles and note durations are assigned uniformly to each quartile with the most common amino acids receiving the longest durations. The durations used are whole, half, quarter, and eighth note. 
 
-Our group also decided to differentiate between conserved domains and unconserved domains. Sections of the protein which are conserved are represented with chords, while other sections of the protein are comprised of single notes in the final piece of music. Chords are created using harmonious intervals based off of music theory.
+We also decided to differentiate between conserved domains and unconserved domains. Sections of the protein which are conserved are represented with chords, while other sections of the protein are comprised of single notes in the final piece of music. Chords are created using harmonious intervals based off of music theory. These conserved domains are also coloured teal in the textual representation of the protein sequence. 
 
-The web app builds off of this algorithm. Users are initially prompted to input an accession number. Using the e-utilities package, we retrieve the DNA sequence from NCBI and pass it to the 
-
+The web app builds off of this algorithm. Users are initially prompted to input an accession number. Using the NCBI e-utilities package, we retrieve the XML document for the protein sequence from NCBI and parse it to retrieve the protein sequence and conserved domains. This information is passed to the sonification algorithm. After hashing the sequence and mapping it to the key, tempo, and musical notes, the audio is produced using the webaudio Javascript API and the sheet music is produced using the abcjs Javascript package. The user is shown a page that contains the sequence, with portions of the sequence colored to indicate a conserved domain, as well as two buttons that will play the song and reveal the sheet music.
 
 \section{Results}
-
+The results of this work can be found at \underline{https://biomusic.herokuapp.com/}. After inputting an accession number, a user is able to listen to the protein sequence and see the accompanying sheet music. After running multiple examples, we find that we are able to hear patterns in protein sequences as past research would suggest. The patterns that are, perhaps, most evident are the most common amino acids which are represented as whole notes. There is often repitition of the same pitch and duration present in the music, indicating a very common amino acid. Additionally, we notice that protein sequences do not appear to start with conserved domains; there is at least amino acid before the conserved domain begins. We are happy with our results since they make evident the form and structure of the protein as well as the distribution of amino acids within the protein.
 
 \section{Discussion}
+DNA and protein sonification are promising methods whereby researchers can analyze sequences in novel ways. Through this project, our group was able to produce pieces of music that are both biologically accurate and melodious. We hope that this small web app can encourage interest in protein sequencing and help researchers to identify patterns in proteins sequences through auditory measures. 
 
 
 \section{References}
 Temple, Mark D. "An auditory display tool for DNA sequence analysis." BMC bioinformatics 18.1 (2017): 221.
 
-
-
-
-
-% include your own bib file like this:
-%\bibliographystyle{acl}
-%\bibliography{acl2018}
-%\bibliography{acl2018}
-%\bibliographystyle{acl_natbib}
 
 \end{document}
