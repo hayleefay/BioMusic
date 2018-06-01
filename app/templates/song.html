@@ -4,7 +4,7 @@
 <h3>{{ protein_name }}</h3>
 <div class="card">
   <div class="card-body">
-    <p>{{ protein_seq|safe }}</p>
+    <p id="protein_seq">{{ protein_seq|safe }}</p>
   </div>
 </div>
 
@@ -87,6 +87,9 @@
       sound1.play(note[0], currentOffset, duration);
       note[1] && sound2.play(note[1], currentOffset + 0.03, duration);
       note[2] && sound3.play(note[2], currentOffset + 0.06, duration);
+
+      document.getElementById('protein_seq').textContent;
+      //debugger;
 
       currentOffset += duration;
     });
