@@ -6,14 +6,6 @@ import collections
 
 app = Flask(__name__)
 
-# NOTE_FREQ = {'C#_1': 277.18, 'D#_1': 207.65, 'F#_1': 369.99, 'G#_1': 415.30,
-#              'A#_1': 466.16, 'C#_2': 554.37, 'D#_2': 622.25, 'F#_2': 739.99,
-#              'G#_2': 830.61, 'A#_2': 932.33, 'G_1': 196.00, 'A_1': 220.00,
-#              'B_1': 246.94, 'C_1': 261.63, 'D_1': 293.66, 'E_1': 329.63,
-#              'F_1': 349.23, 'G_2': 392.00, 'A_2': 440.00, 'B_2': 493.88,
-#              'C_2': 523.25, 'D_2': 587.33, 'E_2': 659.25, 'F_2': 698.46,
-#              'G_3': 783.99, 'A_3': 880.00, 'B_3': 987.77, 'C_3': 1046.50}
-
 NOTE_FREQ = {'G_1': 196.00, 'G#_1': 207.65, 'A_1': 220.00, 'A#_1': 233.08,
              'B_1': 246.94, 'C_1': 261.63, 'C#_1': 277.18, 'D_1': 293.66,
              'D#_1': 311.13, 'E_1': 329.63, 'F_1': 349.23, 'F#_1': 369.99,
@@ -85,7 +77,7 @@ def map_protein(protein, regions):
 
     counter = collections.Counter(protein)
 
-    char_list = sorted(counter, key = counter.get, reverse = True)
+    char_list = sorted(counter, key=counter.get, reverse=True)
 
     duration_quartiles = lol(char_list, 4)
 
@@ -113,7 +105,7 @@ def map_protein(protein, regions):
             # longest note
             dur = 8
         elif x1 in duration_quartiles[1]:
-            # sewcond longest
+            # second longest
             dur = 4
         elif x1 in duration_quartiles[2]:
             dur = 2
@@ -197,23 +189,28 @@ def form():
 @app.route('/song')
 def make_song():
     acc_number = request.args.get('acc_number')
-    url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&rettype=gb&retmode=xml&id=' + acc_number
-    r = requests.get(url)
-    xml_text = BeautifulSoup(r.text, "xml")
-    sequence = xml_text.GBSeq_sequence.contents[0]
-    name = xml_text.GBSeq_definition.contents[0]
+    try:
+        url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&rettype=gb&retmode=xml&id=' + acc_number
+        r = requests.get(url)
+        xml_text = BeautifulSoup(r.text, "xml")
+        sequence = xml_text.GBSeq_sequence.contents[0]
+        name = xml_text.GBSeq_definition.contents[0]
 
-    coding_regions = create_coding_regions(xml_text)
+        coding_regions = create_coding_regions(xml_text)
 
-    key, tempo, notes, durations = map_protein(sequence, coding_regions)
+        key, tempo, notes, durations = map_protein(sequence, coding_regions)
 
-    sheet_string = create_sheet(notes, durations)
+        sheet_string = create_sheet(notes, durations)
 
-    colored_sequence = color_domain(sequence, coding_regions)
+        colored_sequence = color_domain(sequence, coding_regions)
 
-    sheet_name = name if len(name) <= 60 else name[:60] + '...'
+        sheet_name = name if len(name) <= 60 else name[:60] + '...'
 
-    return render_template('song.html', protein_seq=colored_sequence,
-                           protein_name=name, notes=notes, durations=durations,
-                           tempo=tempo, coding_regions=coding_regions,
-                           sheet_string=sheet_string, key=key, sheet_name=sheet_name)
+        return render_template('song.html', protein_seq=colored_sequence,
+                               protein_name=name, notes=notes, durations=durations,
+                               tempo=tempo, coding_regions=coding_regions,
+                               sheet_string=sheet_string, key=key, sheet_name=sheet_name)
+
+    except:
+        error = "I'm sorry! <span style='color:#2fbfaf;'>{0}</span> is not a valid accession number. Click on <a href='/' style='color:#2fbfaf;'>BioMusic</a> to try again.".format(acc_number)
+        return render_template('error.html', error=error)
