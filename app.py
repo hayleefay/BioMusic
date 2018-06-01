@@ -69,7 +69,7 @@ def get_chord(note, key_list):
 def map_protein(protein, regions):
     all_reg = []
     for reg in regions:
-        all_reg.append(list(range(reg[0], reg[1])))
+        all_reg.append(list(range(reg[0], reg[1] + 1)))
 
     all_reg = list(chain(*all_reg))
 
