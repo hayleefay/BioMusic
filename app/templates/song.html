@@ -20,11 +20,13 @@
 <script type="text/javascript" src="https://unpkg.com/abcjs@5.1.2/bin/abcjs_basic_5.1.2-min.js"></script>
 <script type="text/javascript">
   class Sound {
+    // set context of browser and tempo
     constructor(context, tempo) {
       this.context = context;
       this.tempo = tempo || 60;
     }
 
+    // create webaudio audio objects
     init() {
       this.oscillator = this.context.createOscillator();
       this.oscillator.type = 'sine';
@@ -36,6 +38,7 @@
       this.gainNode.connect(this.context.destination);
     }
 
+    // plays a note or chord
     play(value, offset, duration) {
       // Create the oscillator/gain/etc
       this.init();
@@ -54,7 +57,6 @@
       // Set the start time
       this.gainNode.gain.setValueAtTime(0, noteStartTime);
       this.oscillator.start(noteStartTime);
-
       this.gainNode.gain.linearRampToValueAtTime(1, noteStartTime + 0.025);
 
       // Set the end time
@@ -62,16 +64,19 @@
     }
 
     stop(time) {
+      // set note to ramp down in volume
       this.gainNode.gain.exponentialRampToValueAtTime(0.001, time - 0.025);
       this.oscillator.stop(time);
     }
   }
 
-  // Get notes from server
+  // Get notes and durations from server
   var notes = JSON.parse('{{ notes }}');
   var durations = JSON.parse('{{ durations }}');
 
+  // set context for browser
   var context = new (window.AudioContext || window.webkitAudioContext)();
+  // set event listening to play song
   document.getElementById('notes').addEventListener('click', function () {
     var tempo = '{{ tempo }}';
 
@@ -80,18 +85,24 @@
     var sound2 = new Sound(context, tempo);
     var sound3 = new Sound(context, tempo);
 
+    // keep track of when to play notes with offset from beginning of song
     var currentOffset = 0;
     notes.forEach(function (note, index) {
+      // find duration for note at this index
       var duration = durations[index];
 
+      // play note or notes
       sound1.play(note[0], currentOffset, duration);
       note[1] && sound2.play(note[1], currentOffset + 0.03, duration);
       note[2] && sound3.play(note[2], currentOffset + 0.06, duration);
 
+      // keep track of offset
       currentOffset += duration;
     });
   });
 
+  // event listener for sheet music with string interpolation for notes, tempo,
+  // and song name -- render div
   document.getElementById('sheet').addEventListener('click', function () {
     var tempo = {{ tempo }} / 2
     const tune = 'X:1\nT: {{ sheet_name }}\nM: 4/4\nL: 1/8\nQ:1/4=' + tempo + '\nK: {{ key }}\n' + `{{ sheet_string }}`
