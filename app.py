@@ -38,12 +38,13 @@ C_MAJOR = ['G_1', 'A_1', 'B_1', 'C_1', 'D_1', 'E_1', 'F_1', 'G_2', 'A_2', 'B_2',
 G_MAJOR = ['G_1', 'A_1', 'B_1', 'C_1', 'D_1', 'E_1', 'F#_1', 'G_2', 'A_2', 'B_2', 'C_2', 'D_2', 'E_2', 'F#_2', 'G_3', 'A_3', 'B_3', 'C_3']
 D_MAJOR = ['G_1', 'A_1', 'B_1', 'C#_1', 'D_1', 'E_1', 'F#_1', 'G_2', 'A_2', 'B_2', 'C#_2', 'D_2', 'E_2', 'F#_2', 'G_3', 'A_3', 'B_3']
 D_MINOR = ['G_1', 'A_1', 'A#_1', 'C_1', 'D_1', 'E_1', 'F_1', 'G_2', 'A_2', 'A#_2', 'C_2', 'D_2', 'E_2', 'F_2', 'G_3', 'A_3', 'A#_3', 'C_3']
+G_MINOR = ['G_1', 'A_1', 'A#_1', 'C_1', 'D_1', 'D#_1', 'F_1', 'G_2', 'A_2', 'A#_2', 'C_2', 'D_2', 'D#_2', 'F_2', 'G_3', 'A_3', 'A#_3', 'C_3']
 
 
-KEYS = {'Cmaj': C_MAJOR, 'Gmaj': G_MAJOR, 'Dmaj': D_MAJOR, 'Dmin': D_MINOR}
-KEY_LIST = ['Cmaj', 'Gmaj', 'Dmaj']
+
+KEYS = {'Cmaj': C_MAJOR, 'Gmaj': G_MAJOR, 'Dmaj': D_MAJOR, 'Dmin': D_MINOR, 'Gmin': G_MINOR}
+KEY_LIST = ['Cmaj', 'Gmaj', 'Dmaj', 'Dmin', 'Gmin']
 TEMPOS = [120, 250, 400, 600]
-DURATIONS = [1, 2, 4, 8]
 
 
 def get_chord(note, key_list):
