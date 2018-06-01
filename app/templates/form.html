@@ -3,7 +3,40 @@
 {% block content %}
 <h3>Input the accession number of a protein.</h3>
 <form action="/song">
-  <input type="text" name="acc_number" value="NP_005537.3">
+  <input type="text" name="acc_number" value="NP_619524.4">
   <button type="submit" class="btn btn-outline-secondary">Submit</button>
 </form>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<hr>
+<br>
+<h4 style="color:#F8B195;">What is this?</h4>
+<h6>
+  This webapp explores protein sonification- that is, the translation of protein sequences to music.
+  First, we determine a key signature and tempo based off of the first 10 proteins in the sequence.
+  The proteins are divided into two groups of 5 and the unicode point of each protein character is found.
+  Sums of both groups are taken and hashed to a specific key and tempo. Keys included are C major,
+  D major, G major, D minor, and G minor. Tempos are 60, 125, 200 and 300.
+</h6>
+<h6>
+  We then iterate through the protein sequence and assign a note to each individual amino acid.
+  The number of notes in the song is equal to the total number of acids in the sequence.
+  The duration of the note is determined based on the overall distribution of amino acids in a given protein sequence.
+  We also differentiate between conserved domains and unconserved domains. Sections of the protein
+  which are conserved are represented with chords (and are colored teal within the sequence), while other sections
+  of the protein are comprised of single notes.
+</h6>
+<br>
+<hr>
+<br>
+<h4 style="color:#F8B195;">Try these protein accession numbers to get started:</h4>
+<ul>
+  <li>NP_444477.2</li>
+  <li>AQM37523</li>
+  <li>AAB30058.2</li>
+</ul>
 {% endblock %}
