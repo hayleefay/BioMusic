@@ -1,10 +1,10 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <p>ERROR</p>
-  </body>
-</html>
+{% extends 'layout.html' %}
+
+{% block content %}
+    <br>
+    <h3 align='center'>{{ error|safe }}</h3>
+    <br>
+    <div style="text-align: center">
+      <img src="https://media.giphy.com/media/bEVKYB487Lqxy/giphy.gif" alt="Go Fish." height="400">
+    </div>
+{% endblock %}
