@@ -124,20 +124,6 @@ def map_protein(protein, regions):
 
     return key, tempo, notes, duration
 
-    '''
-    # doing tempo based off of amino acid distribution
-    dist = collections.Counter(protein)
-
-
-    print(dist)
-
-
-    for i, x in protein:
-
-
-    return key, tempo, notes, duration
-    '''
-
 
 def color_domain(sequence, coding_regions):
     colored_sequence = ''
@@ -208,30 +194,26 @@ def form():
     return render_template('form.html')
 
 
-@app.route('/song', methods=['POST'])
+@app.route('/song')
 def make_song():
-    if request.method == 'POST':
-        acc_number = request.form['acc_number']
-        url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&rettype=gb&retmode=xml&id=' + acc_number
-        r = requests.get(url)
-        xml_text = BeautifulSoup(r.text, "xml")
-        sequence = xml_text.GBSeq_sequence.contents[0]
-        name = xml_text.GBSeq_definition.contents[0]
+    acc_number = request.args.get('acc_number')
+    url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&rettype=gb&retmode=xml&id=' + acc_number
+    r = requests.get(url)
+    xml_text = BeautifulSoup(r.text, "xml")
+    sequence = xml_text.GBSeq_sequence.contents[0]
+    name = xml_text.GBSeq_definition.contents[0]
 
-        coding_regions = create_coding_regions(xml_text)
+    coding_regions = create_coding_regions(xml_text)
 
-        key, tempo, notes, durations = map_protein(sequence, coding_regions)
+    key, tempo, notes, durations = map_protein(sequence, coding_regions)
 
-        sheet_string = create_sheet(notes, durations)
+    sheet_string = create_sheet(notes, durations)
 
-        colored_sequence = color_domain(sequence, coding_regions)
+    colored_sequence = color_domain(sequence, coding_regions)
 
-        sheet_name = name if len(name) <= 60 else name[:60] + '...'
+    sheet_name = name if len(name) <= 60 else name[:60] + '...'
 
-        return render_template('song.html', protein_seq=colored_sequence,
-                               protein_name=name, notes=notes, durations=durations,
-                               tempo=tempo, coding_regions=coding_regions,
-                               sheet_string=sheet_string, key=key, sheet_name=sheet_name)
-
-    error = 'sorry'
-    return render_template('error.html', error=error)
+    return render_template('song.html', protein_seq=colored_sequence,
+                           protein_name=name, notes=notes, durations=durations,
+                           tempo=tempo, coding_regions=coding_regions,
+                           sheet_string=sheet_string, key=key, sheet_name=sheet_name)
