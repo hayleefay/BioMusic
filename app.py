@@ -37,8 +37,10 @@ NOTE_LIST = list(NOTE_FREQ.keys())
 C_MAJOR = ['G_1', 'A_1', 'B_1', 'C_1', 'D_1', 'E_1', 'F_1', 'G_2', 'A_2', 'B_2', 'C_2', 'D_2', 'E_2', 'F_2', 'G_3', 'A_3', 'B_3', 'C_3']
 G_MAJOR = ['G_1', 'A_1', 'B_1', 'C_1', 'D_1', 'E_1', 'F#_1', 'G_2', 'A_2', 'B_2', 'C_2', 'D_2', 'E_2', 'F#_2', 'G_3', 'A_3', 'B_3', 'C_3']
 D_MAJOR = ['G_1', 'A_1', 'B_1', 'C#_1', 'D_1', 'E_1', 'F#_1', 'G_2', 'A_2', 'B_2', 'C#_2', 'D_2', 'E_2', 'F#_2', 'G_3', 'A_3', 'B_3']
+D_MINOR = ['G_1', 'A_1', 'A#_1', 'C_1', 'D_1', 'E_1', 'F_1', 'G_2', 'A_2', 'A#_2', 'C_2', 'D_2', 'E_2', 'F_2', 'G_3', 'A_3', 'A#_3', 'C_3']
 
-KEYS = {'Cmaj': C_MAJOR, 'Gmaj': G_MAJOR, 'Dmaj': D_MAJOR}
+
+KEYS = {'Cmaj': C_MAJOR, 'Gmaj': G_MAJOR, 'Dmaj': D_MAJOR, 'Dmin': D_MINOR}
 KEY_LIST = ['Cmaj', 'Gmaj', 'Dmaj']
 TEMPOS = [120, 250, 400, 600]
 DURATIONS = [1, 2, 4, 8]
@@ -78,12 +80,19 @@ def map_protein(protein, regions):
     tempo = TEMPOS[sum(t) % len(TEMPOS)]
     key = KEY_LIST[sum(k) % len(KEY_LIST)]
 
+    lol = lambda lst, sz: [lst[i:i+sz] for i in range(0, len(lst), sz)]
+
+    counter = collections.Counter(protein)
+
+    char_list = sorted(counter, key = counter.get, reverse = True)
+
+    duration_quartiles = lol(char_list, 4)
+
     notes = []
     duration = []
 
-    for i, (x1, x2) in enumerate(zip(protein[0::2], protein[1::2])):
+    for i, x1 in enumerate(protein):
         num1 = ord(x1)
-        num2 = ord(x2)
 
         note_name = KEYS[key][num1 % len(KEYS[key])]
         note = NOTE_FREQ[note_name]
@@ -99,9 +108,18 @@ def map_protein(protein, regions):
         else:
             notes.append([note])
 
-        dur = num2 % 4
+        if x1 in duration_quartiles[0]:
+            # longest note
+            dur = 8 
+        elif x1 in duration_quartiles[1]:
+            # sewcond longest
+            dur = 4
+        elif x1 in duration_quartiles[2]:
+            dur = 2
+        else:
+            dur = 1
 
-        duration.append(DURATIONS[dur])
+        duration.append(dur)
 
     return key, tempo, notes, duration
 
