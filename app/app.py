@@ -185,7 +185,10 @@ def create_coding_regions(xml_text):
                 region = k.GBFeature_key.find_next('GBFeature_location').contents
                 i = region[0].find('..')
 
-                if '<' in region[0]:
+                if '<' in region[0] and '>' in region[0]:
+                    start = int(region[0][:i].strip('<').strip('>'))
+                    stop = int(region[0][i+2:].strip('<').strip('>'))
+                elif '<' in region[0]:
                     start = int(region[0][:i].strip('<'))
                     stop = int(region[0][i+2:].strip('<'))
                 elif '>' in region[0]:
