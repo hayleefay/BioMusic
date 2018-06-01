@@ -1,0 +1,76 @@
+%
+% File acl2018.tex
+%
+%% Based on the style files for ACL-2017, with some changes, which were, in turn,
+%% Based on the style files for ACL-2015, with some improvements
+%%  taken from the NAACL-2016 style
+%% Based on the style files for ACL-2014, which were, in turn,
+%% based on ACL-2013, ACL-2012, ACL-2011, ACL-2010, ACL-IJCNLP-2009,
+%% EACL-2009, IJCNLP-2008...
+%% Based on the style files for EACL 2006 by 
+%%e.agirre@ehu.es or Sergi.Balari@uab.es
+%% and that of ACL 08 by Joakim Nivre and Noah Smith
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[hyperref]{acl2018}
+\usepackage{times}
+\usepackage{latexsym}
+
+\usepackage{url}
+
+%\aclfinalcopy % Uncomment this line for the final submission
+%\def\aclpaperid{***} %  Enter the acl Paper ID here
+
+%\setlength\titlebox{5cm}
+% You can expand the titlebox if you need extra space
+% to show all the authors. Please do not make the titlebox
+% smaller than 5cm (the original size); we will check this
+% in the camera-ready version and ask you to change it back.
+
+% \newcommand\BibTeX{B{\sc ib}\TeX}
+
+\title{BioMusic: Making Proteins Sing}
+
+\date{06/01/2018}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+  \textit{Some text here for an abstract/excecutive summary?}
+
+\section{Introduction}
+
+For this project, we explore protein sonification- that is, the translation of protein sequences to music. To achieve this goal, we investigate sonification algorithms and well as music theory in order to produce pieces of music that are both effective representations of sequences and melodiously pleasing. We then create a web application to demonstrate the process and share the generated music with users. We employ Javascript libraries to produce auditory and written music in browser. 
+
+\section{Background}
+
+In the context of bioinformatics, sonification refers to the attempt to capture the information content of DNA and protein sequences auditorily. Although sequences are traditionally analyzed visually, using auditory methods to inspect DNA and proteins have benefits. Rather than learning about individual elements of sequences, sonification is useful when determining patterns and potential mutations across the entire DNA or protein strand. Sonification can also be used to aid visually impaired individuals, allowing them to hear the sequence when they are not able to see it. 
+
+There are six main algorithms currently used in the DNA sonification process. These algorithms are based on biological features and rules, such as the distinction between introns and exons in a DNA sequence. This ensures that music produced through sonification contains applicable information about the structure of the sequence in question.  Most DNA sonification algorithms analyze nucleotides in groups of three to simulate the structure of codons; these algorithms generate reading frames and some even produce music with interlaced melodies to represent the three possible reading frames present in a DNA strand. Simpler algorithms use hash tables to map each of the four nucleotide bases to one of four musical notes or pairs of nucleotides to 16 possible musical notes. 
+
+Our group takes advantage of these two main apporaches behind  
+
+
+\section{Methods}
+
+
+\section{Results}
+
+
+\section{Discussion}
+
+
+\section{References}
+Temple, Mark D. "An auditory display tool for DNA sequence analysis." BMC bioinformatics 18.1 (2017): 221.
+
+
+
+
+
+% include your own bib file like this:
+%\bibliographystyle{acl}
+%\bibliography{acl2018}
+%\bibliography{acl2018}
+%\bibliographystyle{acl_natbib}
+
+\end{document}

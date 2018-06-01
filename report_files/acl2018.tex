@@ -1,0 +1,105 @@
+%
+% File acl2018.tex
+%
+%% Based on the style files for ACL-2017, with some changes, which were, in turn,
+%% Based on the style files for ACL-2015, with some improvements
+%%  taken from the NAACL-2016 style
+%% Based on the style files for ACL-2014, which were, in turn,
+%% based on ACL-2013, ACL-2012, ACL-2011, ACL-2010, ACL-IJCNLP-2009,
+%% EACL-2009, IJCNLP-2008...
+%% Based on the style files for EACL 2006 by 
+%%e.agirre@ehu.es or Sergi.Balari@uab.es
+%% and that of ACL 08 by Joakim Nivre and Noah Smith
+
+\documentclass[11pt,a4paper]{article}
+\usepackage[hyperref]{acl2018}
+\usepackage{times}
+\usepackage{latexsym}
+
+\usepackage{url}
+
+%\aclfinalcopy % Uncomment this line for the final submission
+%\def\aclpaperid{***} %  Enter the acl Paper ID here
+
+%\setlength\titlebox{5cm}
+% You can expand the titlebox if you need extra space
+% to show all the authors. Please do not make the titlebox
+% smaller than 5cm (the original size); we will check this
+% in the camera-ready version and ask you to change it back.
+
+% \newcommand\BibTeX{B{\sc ib}\TeX}
+
+\title{Evolving Character Relationships Using HMM and LSTM}
+
+\author{Sushmita Gopalan \\
+  {\tt sushmitavgopalan@uchicago.edu} \\\And
+  Haylee Ham \\
+  {\tt haylee@uchicago.edu} \\\And
+  Chelsea Ernhofer \\
+  {\tt cernhofer@uchicago.edu} \\}
+
+\date{05/31/2018}
+
+\begin{document}
+\maketitle
+\makeauthor
+\begin{abstract}
+  The purpose of this project was to use small book synopses to predict positive or negative character relationships. This is based off of work by Snigdha Chaturvedi et al. (2016) in which evolving character relationships are modelled by training a Hidden Markov Model on key text features. Our group recreates this analysis and extends it by also using LSTM Neural Networks to capture character relationships. RESULTS SHOW SOMETHING  
+\end{abstract}
+
+\section{Introduction}
+
+Computational narrative studies is a field within natural language processing which seeks to understand, summarize, and generate stories. An increased ability to form narratives is not only useful when applied to literature or film, but can increase a machine's ability to communicate effectively with human users. Identification of character relationships is an important method used in computational narrative studies to identify and summarize individual character roles within a narrative and thus more fully understand the literature in question. With the ability to properly capture character identities and relationships, further work can be done to explore and understand character personality and motivation.
+
+Current research has developed multiple methods in attempts to effectively understand stories through analysis of the characters within them.  Both supervised and unsupervised methods have been applied to tasks such as role and relationship extraction and social network modeling. Our work seeks to identify evolving character relationships through supervised methods. 
+
+\section{Related Work}
+
+The body of this work is based off of a paper by Snigdha Chaturvedi et al. (2016) in which researchers attempt to model the specific and dynamic relationships between characters. This goal is divergent from other character relationship projects which seek to simply predict one static relationship between characters or identify basic character roles within a narrative. This is useful since the relationship between two given characters is likely to change throughout the progression of the novel. Chaturvedi et al. used novel summaries from the website SparkNotes as data. From these summaries, sentences were extracted which contained information on a pair of characters. Human readers went through these sentences and determined whether the relationship between the two main characters mentioned was cooperative or noncooperative. This became the target variable. For the predictors, text was then preprocessed and features such as part of speech tags and dependency parses were extracted. From there, Chaturvedi et al. engineered two types of features: content based features and transition features. 
+Content based features contain information concerning the verbs and adverbs that two characters complete together, separately, or one to another. Content features also include semantic parses which employs a number of frames to the input sentences. Transition features indicate whether the relationship between characters changes between the different extracted sentences. 
+Chaturvedi et al. use logistic regression and decision trees as an unstructured baseline. In these models, each sentence was fed through independently of the sequence to which is belongs and the relationship between the characters in that one sentence was predicted as either cooperative or noncooperative. A second-order Markov Model was then used to capture the potentially changing relationships between characters over time. Precision, recall, and F1 score were used as evaluation metrics. Results showed that the second order Markov Model had the highest F1 score out of all methods used with a measure of 60.76 compared to 48.54 generate by the decision tree and 51.48 from the logistic regression. 
+
+\section{Data}
+Data from the Chaturvedi et al. paper was used for this project. Data consisted of 100 sequences comprising almost 800 single sentences. Half of these sequences were fully annotated, that is, they included indications of which characters were central in each sequence and marked their reference in each individual sentence. For the other 50 sequences which did not include such annotation, annotations were added manually after reading through the sequences and external plot descriptions.
+
+\section{Methods}
+As previously mentioned, our project is, in part, a recreation of the Chaturvedi et al. paper. We attempt to recreate the majority of the content based features, namely verb based interactions between characters and counts of positive and negative spanning words between characters. We then also implement a decision tree and logistic regression as baseline indicators. A first order Hidden Markov Model is used to generate predictions based off of complete sequences rather than single sentences. Finally, we extend the work of Chaturvedi et al. by including a Neural Network model to also predict character relationships, allowing for evolution of said relationships.
+
+\subsection{Feature Extraction}
+Positive and negative verb interaction features were extracted for three separate instances: characters verb together, one character verbs another, and character verb separately. In order to engineer these features, part of speech tagging and dependency parsing were run to capture the structure of the sentence and individual word roles. For characters verb together, verbs were included if they were ancestors of both characters in a sentence. For one character verbs another, verbs were included if it was between and object and subject and the object and subject were the two main characters of that sentence. Verbs that were an ancestor to either of the characters and weren't already included in another set (either characters verb together or one character verbs another) were added to the single character verbs set. Sentiment analysis was then done on all of the verbs included and a binary indicator was created to identify whether characters negatively or positively verbed. 
+In order to capture frames, our group used the frames created by Chaturvedi et al.
+
+\subsection{Basline Modeling}
+
+
+
+\subsection{HMM}
+hidden markov model explanation 
+
+\subsection{LSTM}
+LSTM stuff 
+
+\section{Experimental Setup}
+How we did everything... ? 
+
+\section{Results and Analysis}
+Table here maybe... comparing accuracy between different models 
+
+Why accuracy is different between models
+
+Why accuracy is different between their paper and our work - feature extraction?
+
+\section{Conclusion and Future Work}
+Conclusion stuff
+
+CHANGING A LOT OF THINGS IN HEREEEEEE
+
+
+
+% include your own bib file like this:
+%\bibliographystyle{acl}
+%\bibliography{acl2018}
+%\bibliography{acl2018}
+%\bibliographystyle{acl_natbib}
+
+\end{document}
