@@ -8,4 +8,4 @@ html5lib==0.9999999
 Jinja2==2.9.6
 jsonschema==2.6.0
 lxml==3.7.3
-requests>=2.20.02.14.2
+requests>=2.20.0
